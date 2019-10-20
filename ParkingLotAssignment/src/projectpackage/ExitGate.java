@@ -18,11 +18,31 @@ public class ExitGate extends Gate
         moneyCollected = 0;
     }
     @Override
-    public void carAtGate(Car c)
+    public boolean carAtGate(Car c)
     {
         Ticket payStub = c.giveTicket();
         moneyCollected += payStub.getCostOfTicket();
+        String location = payStub.getLocation();
+        if(location.contains("VIP"))
+        {
+            currVIP--;
+        }
+        else if(location.contains("Garage"))
+        {
+            currGarage--;
+        }
+        else if(location.contains("Covered"))
+        {
+            currCovered--;
+        }
+        else if(location.contains("Close"))
+        {
+            currClose--;
+        }
+        else
+            currStandard--;
         currCapacity--;
+        return true;
     }
     public double sendMoney()
     {

@@ -13,8 +13,10 @@ public class Ticket
 {
     private final Instant timestamp;
     private double costPerHour;
-    public Ticket(String location)
+    private final String location;
+    public Ticket(String loc)
     {
+        location = loc;
         timestamp = Instant.now();
         costPerHour = 1.5;
         if(location.contains("Covered"))
@@ -33,6 +35,10 @@ public class Ticket
         {
             costPerHour += .25;
         }
+    }
+    public String getLocation()
+    {
+        return location;
     }
     //Gets the cost of the ticket. Partial hours are still charged for to maximize profit
     public double getCostOfTicket()

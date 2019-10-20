@@ -13,6 +13,14 @@ public class Runner
 {
     public static void main(String[] args)
     {
-        
+        ParkingLot lot = new ParkingLot();
+        lot.carArrived();
+        lot.carArrived();
+        lot.carArrived();
+        System.out.println(lot.currentOutstandingIncome());
+        lot.carLeft();
+        System.out.println(lot.currentOutstandingIncome());
+        lot.close();
+        lot.totalIncome();
     }
 }
