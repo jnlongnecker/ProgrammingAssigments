@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package projectpackage;
+import java.io.File;
 import java.util.Random;
+import java.util.Scanner;
 /**
  *
  * @author Jared - PC
@@ -12,14 +14,40 @@ import java.util.Random;
 
 public class Runner 
 {
+    
     //****Change the value of this variable to simulate how long each car stays in the lot****//
-    public static final int HOURS_IN_LOT = 1;
+    public static int HOURS_IN_LOT;
     
     //****Change the value of this variable to decide how many days to simulate****//
-    private static final int SIMULATION_DAYS = 4;
+    private static int SIMULATION_DAYS;
+
     public static void main(String[] args)
     {
-        Random rm = new Random();
+        for(int i = 1; i <= 5; i++)
+        {
+            
+        System.out.println("*****Running test file " + i + "*****");
+        String file = "input" + i + ".txt";
+        Scanner inFS = null;
+        try
+        {
+           inFS = new Scanner(new File(file));
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.exit(-1);
+        }
+        HOURS_IN_LOT = inFS.nextInt();
+        SIMULATION_DAYS = inFS.nextInt();
+        int seed = inFS.nextInt();
+        inFS.close();
+        //If invalid values are input, adjust to minimum values
+        if(HOURS_IN_LOT < 0) HOURS_IN_LOT = 0;
+        if(SIMULATION_DAYS < 1) SIMULATION_DAYS = 1;
+        if(seed < 0) seed = 0;
+        
+        Random rm = new Random(seed);
         ParkingLot lot = new ParkingLot();
         
         for(int day = 1; day <= SIMULATION_DAYS; day++)
@@ -44,8 +72,8 @@ public class Runner
                     ": $" + String.format("%.2f",lot.currentOutstandingIncome()) + ".");
             lot.close();
         }
-        
-        //Displays the total amount of money the lot has made
-        lot.totalIncome();
+        System.out.println();
+    }
+    
     }
 }

@@ -16,7 +16,7 @@ public class Car
     private Ticket payTicket;
     public Car()
     {
-        Random randomSelector = new Random();
+        Random randomSelector = new Random(1);
         int selection = randomSelector.nextInt() % 5;
         locationPref = "";
         switch(selection)

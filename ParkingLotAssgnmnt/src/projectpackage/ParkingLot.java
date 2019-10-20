@@ -20,10 +20,10 @@ public class ParkingLot
     private static final int COVERED_CAPACITY = 800;
     private static final int CLOSE_CAPACITY = 200;
     private static final int STANDARD_CAPACITY = 5000;
-    private static final int CAPACITY = VIP_CAPACITY + GARAGE_CAPACITY + COVERED_CAPACITY + CLOSE_CAPACITY + STANDARD_CAPACITY;
     private double moneyMade;
     public ParkingLot()
     {
+        moneyMade = 0;
         gates = new ArrayList<>();
         carsInLot = new ArrayList<>();
         Gate.addCapacity(VIP_CAPACITY, 0);
@@ -58,12 +58,9 @@ public class ParkingLot
     
     public void close()
     {
-        while(!carsInLot.isEmpty())
-        {
-            carLeft();
-        }
         ExitGate temp = (ExitGate)gates.get(1);
-        moneyMade = temp.sendMoney();
+        moneyMade += temp.sendMoney();
+        totalIncome();
     }
     
     public double currentOutstandingIncome()
