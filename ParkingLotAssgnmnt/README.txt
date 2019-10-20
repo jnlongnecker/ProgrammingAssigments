@@ -7,9 +7,12 @@ The parking lot is assumed to have only 1 entrance gate and 1 exit gate.
 /***********************************CARS**************************************/
 A car is randomly assigned a preference on where they want to park. If the
 preferred location is full, they will be assigned a new location in depreciating
-order. The locations and their order are as follows:
+order. If the location is Standard; however, the new location will be assigned
+in appreciating order.
 
 /*********************************LOCATIONS***********************************/
+The locations and their order are as follows:
+
 VIP - Garage - Covered - Close - Standard
 
 All VIP locations are in a Garage, all Garage locations are Covered, and
