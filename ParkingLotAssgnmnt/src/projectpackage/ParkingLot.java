@@ -15,7 +15,7 @@ public class ParkingLot
 {
     private final ArrayList<Gate> gates;
     private final ArrayList<Car> carsInLot;
-    private static final int VIP_CAPACITY = 10;
+    private static final int VIP_CAPACITY = 100;
     private static final int GARAGE_CAPACITY = 400;
     private static final int COVERED_CAPACITY = 800;
     private static final int CLOSE_CAPACITY = 200;
@@ -47,10 +47,13 @@ public class ParkingLot
         return false;
     }
     
-    public void carLeft()
+    public boolean carLeft()
     {
+        if(carsInLot.isEmpty())
+            return false;
         Car c = carsInLot.remove(0);
         gates.get(1).carAtGate(c);
+        return true;
     }
     
     public void close()

@@ -44,7 +44,7 @@ public class Ticket
     public double getCostOfTicket()
     {
         Instant now = Instant.now();
-        long timeInSeconds = now.getEpochSecond() + 3600 - timestamp.getEpochSecond();
+        long timeInSeconds = now.getEpochSecond() + (Runner.HOURS_IN_LOT * 3600) - timestamp.getEpochSecond();
         double timeInHours = timeInSeconds/3600;
         
         return timeInHours * costPerHour;
