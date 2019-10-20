@@ -5,8 +5,6 @@
  */
 package projectpackage;
 import java.time.Instant;
-
-
 /**
  *
  * @author Jared - PC
@@ -36,12 +34,11 @@ public class Ticket
             costPerHour += .25;
         }
     }
+    //Gets the cost of the ticket. Partial hours are still charged for to maximize profit
     public double getCostOfTicket()
     {
-        Instant test = Instant.now();
-        test.plusSeconds(3600);
-        long timeInSeconds = test.getEpochSecond() + 3600 - timestamp.getEpochSecond();
-        
+        Instant now = Instant.now();
+        long timeInSeconds = now.getEpochSecond() + 3600 - timestamp.getEpochSecond();
         double timeInHours = timeInSeconds/3600;
         
         return timeInHours * costPerHour;
