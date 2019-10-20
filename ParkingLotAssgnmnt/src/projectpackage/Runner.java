@@ -16,10 +16,10 @@ public class Runner
 {
     
     //****Change the value of this variable to simulate how long each car stays in the lot****//
-    public static int HOURS_IN_LOT;
+    public static int HOURS_IN_LOT = 0;
     
     //****Change the value of this variable to decide how many days to simulate****//
-    private static int SIMULATION_DAYS;
+    private static int SIMULATION_DAYS = 1;
 
     public static void main(String[] args)
     {
@@ -38,16 +38,41 @@ public class Runner
             System.out.println(e.getMessage());
             System.exit(-1);
         }
-        HOURS_IN_LOT = inFS.nextInt();
-        SIMULATION_DAYS = inFS.nextInt();
-        int seed = inFS.nextInt();
-        inFS.close();
-        //If invalid values are input, adjust to minimum values
-        if(HOURS_IN_LOT < 0) HOURS_IN_LOT = 0;
-        if(SIMULATION_DAYS < 1) SIMULATION_DAYS = 1;
-        if(seed < 0) seed = 0;
         
-        Random rm = new Random(seed);
+        //Read in test file inputs
+        int seed = 0;
+        if(inFS.hasNextInt())
+            HOURS_IN_LOT = inFS.nextInt();
+        else
+        {
+            System.out.println("Test File in Invalid Format");
+            System.out.println("Required Format: HOURS_IN_LOT SIMULATION_DAYS SEED\n");
+            continue;
+        }
+        if(inFS.hasNextInt())
+            SIMULATION_DAYS = inFS.nextInt();
+        else
+        {
+            System.out.println("Test File in Invalid Format");
+            System.out.println("Required Format: HOURS_IN_LOT SIMULATION_DAYS SEED\n");
+            continue;
+        }
+        if(inFS.hasNextInt())
+            seed = inFS.nextInt();
+        inFS.close();
+        
+        //If invalid values are input, adjust to minimum values
+        if(HOURS_IN_LOT < 0 || SIMULATION_DAYS < 1 || seed < 0)
+        {
+            System.out.println("Test File has Invalid Inputs");
+            System.out.println("Minimum Values: 0 1 0\n");
+            continue;
+        }
+        Random rm;
+        if(seed == 0)
+            rm = new Random();
+        else
+            rm = new Random(seed);
         ParkingLot lot = new ParkingLot();
         
         for(int day = 1; day <= SIMULATION_DAYS; day++)

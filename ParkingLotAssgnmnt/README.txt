@@ -13,20 +13,23 @@ HOURS_IN_LOT determines how many hours, for the sake of the simulation, that
 each car will stay in the lot. Setting this to 0 will cause the simulation to
 simulate real-time; since the simulation is done instantly, the money generated
 will be $0.00. Cars are allowed to stay as long as they want, there is no upper
-limit. 
+limit. Minimum value: 0
 
 SIMULATION_DAYS determines how many "days" the simulation will run through. For
 the sake of the simulation, each "day" is 50,000 iterations of a loop with a 
 1/3 chance to add a car and a 2/3 chance to remove a car. At the end of each
 "day", the program will output the total of all the charges on the cars in 
 the lot as well as the total amount of money the lot has made thus far.
+Minimum value: 1
 
 SEED simply sets the seed of the random number generator that determines the
-chance to add or remove a car from the lot.
+chance to add or remove a car from the lot. This input is optional, leave 
+blank or set it to 0 for a random seed.
 
 The program will go through each test file every time it is run, so the test
 files may be changed without altering any code. The code assumes that the test
-files are in the base ParkingLotAssgnmnt directory.
+files are in the base ParkingLotAssgnmnt directory. If the test file is invalid,
+the program will notify the user of the issue and continue to the other test files.
 
 /***********************************CARS**************************************/
 A car is randomly assigned a preference on where they want to park. If the
