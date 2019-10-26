@@ -18,11 +18,11 @@ public class Group
     private final Prices prices;
     private Random rm;
     
-    public Group()
+    public Group(int seed)
     {
         lots = new ArrayList();
         prices = new Prices();
-        rm = new Random();
+        rm = new Random(seed);
         int numLots = rm.nextInt(3);
         for(int x = 0; x <= numLots; x++)
         {
@@ -31,14 +31,25 @@ public class Group
         }
     }
     
+    public Prices getPrices()
+    {
+        return prices;
+    }
+    
     public void setNewPrices()
     {
-        int modifier = rm.nextInt() % 11;
-        prices.baseCost = 1.45 + (modifier/100);
-        prices.VIPCost = 4.95 + (modifier/100);
-        prices.closeCost = .10 + (modifier/100);
-        prices.garageCost = .2 + (modifier/100);
-        prices.coveredCost = .45 + (modifier/100);
+        int modifier = rm.nextInt(11);
+        prices.baseCost = 1.45 + ((double)modifier/100);
+        prices.VIPCost = 4.95 + ((double)modifier/100);
+        prices.closeCost = .10 + ((double)modifier/100);
+        prices.garageCost = .2 + ((double)modifier/100);
+        prices.coveredCost = .45 + ((double)modifier/100);
+    }
+    
+    public void setDiscount()
+    {
+        int modifier = rm.nextInt(26);
+        prices.discount = 1 - ((double)modifier/100);
     }
     
     public boolean carArrived(Car c)

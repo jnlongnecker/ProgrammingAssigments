@@ -35,6 +35,7 @@ public class Ticket
         {
             costPerHour += p.garageCost;
         }
+        costPerHour = costPerHour * p.discount;
     }
     public String getLocation()
     {

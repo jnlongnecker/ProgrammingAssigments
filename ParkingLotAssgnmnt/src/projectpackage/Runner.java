@@ -73,19 +73,27 @@ public class Runner
             rm = new Random();
         else
             rm = new Random(seed);
-        Group group = new Group();
+        Group group = new Group(seed);
         group.setNewPrices();
+        group.setDiscount();
         
         for(int day = 1; day <= SIMULATION_DAYS; day++)
         {
+            int carCount = 0;
             for(int x = 0; x < 50000; x++)
             {
                 switch(rm.nextInt() % 3)
                 {
                     case 0:
+                        carCount++;
                         Car c = new Car();
                         if(!group.carArrived(c))
                             System.out.println("Lot has reached capacity.");
+                        if(rm.nextInt(100000) == 5)
+                        {
+                            System.out.println("Car " + carCount + " requested Group Prices.");
+                            c.requestPrices(group);
+                        }
                         break;
                     case 1:
                     case 2:

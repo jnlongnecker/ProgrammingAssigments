@@ -49,4 +49,10 @@ public class Car
     {
         payTicket = t;
     }
+    
+    public void requestPrices(Group group)
+    {
+        Prices p = group.getPrices();
+        System.out.println(p.toString());
+    }
 }
