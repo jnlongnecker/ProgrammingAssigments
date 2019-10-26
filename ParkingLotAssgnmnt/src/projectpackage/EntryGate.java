@@ -13,90 +13,86 @@ package projectpackage;
  */
 public class EntryGate extends Gate
 {
-    public EntryGate()
-    {
-        super();
-    }
     @Override
-    public boolean carAtGate(Car c)
+    public boolean carAtGate(Car c, Capacities cap)
     {
         //If the entire lot is at capacity, we cannot accept any new cars
-        if(currCapacity == lotCapacity)
+        if(cap.currCapacity == Capacities.CAPACITY)
             return false;
         //We start by trying to give the car its preferred location
         String actualLocation = c.tellPreference();
         if(actualLocation.indexOf("VIP") == 0)
         {
             //If the car wants VIP, but there are no VIP vacancies, go to next tier
-            if(currVIP == VIPCapacity)
+            if(cap.currVIP == Capacities.VIP_CAPACITY)
             {
                 actualLocation = actualLocation.replace("VIP", "");
             }
             else
-                currVIP++;
+                cap.currVIP++;
         }
         if(actualLocation.indexOf("Garage") == 0)
         {
             //If the car wants Garage, but there are no Garage vacancies, go to next tier
-            if(currGarage == garageCapacity)
+            if(cap.currGarage == Capacities.GARAGE_CAPACITY)
             {
                 actualLocation = actualLocation.replace("Garage", "");
             }
             else
-                currGarage++;
+                cap.currGarage++;
         }
         if(actualLocation.indexOf("Covered") == 0)
         {
             //If the car wants Covered, but there are no Covered vacancies, go to next tier
-            if(currCovered == coveredCapacity)
+            if(cap.currCovered == Capacities.COVERED_CAPACITY)
             {
                 actualLocation = actualLocation.replace("Covered", "");
             }
             else
-                currCovered++;
+                cap.currCovered++;
         }
         if(actualLocation.indexOf("Close") == 0)
         {
             //If the car wants Close, but there are no Close vacancies, go to Standard.
-            if(currClose == closeCapacity)
+            if(cap.currClose == Capacities.CLOSE_CAPACITY)
             {
                 actualLocation = "Standard";
             }
             else
-                currClose++;
+                cap.currClose++;
         }
         if(actualLocation.indexOf("Standard") == 0)
         {
             //If the car wants Standard, but there are no Standard vacancies, 
             //increase the tier until a vacancy is found
-            if(currStandard == standardCapacity)
+            if(cap.currStandard == Capacities.STANDARD_CAPACITY)
             {
-                if(currClose != closeCapacity)
+                if(cap.currClose != Capacities.CLOSE_CAPACITY)
                 {
                     actualLocation = "Close";
-                    currClose++;
+                    cap.currClose++;
                 }
-                else if(currCovered != coveredCapacity)
+                else if(cap.currCovered != Capacities.COVERED_CAPACITY)
                 {
                     actualLocation = "CoveredClose";
-                    currCovered++;
+                    cap.currCovered++;
                 } 
-                else if(currGarage != garageCapacity)
+                else if(cap.currGarage != Capacities.GARAGE_CAPACITY)
                 {
                     actualLocation = "GarageCoveredClose";
-                    currGarage++;
+                    cap.currGarage++;
                 }
-                else if(currVIP != VIPCapacity)
+                else if(cap.currVIP != Capacities.VIP_CAPACITY)
                 {
                     actualLocation = "VIPGarageCoveredClose";
-                    currVIP++;
+                    cap.currVIP++;
                 }  
             }
         }
         //Now create the ticket with the actual location the car will be sent to
         Ticket ticket = new Ticket(actualLocation);
         c.receiveTicket(ticket);
-        currCapacity++;
+        cap.currCapacity++;
         return true;
     }
 }

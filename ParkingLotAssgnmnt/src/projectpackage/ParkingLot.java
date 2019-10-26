@@ -13,24 +13,17 @@ import java.util.ArrayList;
  */
 public class ParkingLot 
 {
+    private Capacities capacities;
     private final ArrayList<Gate> gates;
     private final ArrayList<Car> carsInLot;
-    private static final int VIP_CAPACITY = 100;
-    private static final int GARAGE_CAPACITY = 400;
-    private static final int COVERED_CAPACITY = 800;
-    private static final int CLOSE_CAPACITY = 200;
-    private static final int STANDARD_CAPACITY = 5000;
+    
     private double moneyMade;
     public ParkingLot()
     {
+        capacities = new Capacities();
         moneyMade = 0;
         gates = new ArrayList<>();
         carsInLot = new ArrayList<>();
-        Gate.addCapacity(VIP_CAPACITY, 0);
-        Gate.addCapacity(GARAGE_CAPACITY, 1);
-        Gate.addCapacity(COVERED_CAPACITY, 2);
-        Gate.addCapacity(CLOSE_CAPACITY, 3);
-        Gate.addCapacity(STANDARD_CAPACITY, 4);
         gates.add(new EntryGate());
         gates.add(new ExitGate());
         moneyMade = 0;
@@ -39,7 +32,8 @@ public class ParkingLot
     public boolean carArrived()
     {
         Car c = new Car();
-        if(gates.get(0).carAtGate(c))
+        
+        if(gates.get(0).carAtGate(c, capacities))
         {
             carsInLot.add(c);
             return true;
@@ -52,7 +46,7 @@ public class ParkingLot
         if(carsInLot.isEmpty())
             return false;
         Car c = carsInLot.remove(0);
-        gates.get(1).carAtGate(c);
+        gates.get(1).carAtGate(c, capacities);
         return true;
     }
     

@@ -14,34 +14,33 @@ public class ExitGate extends Gate
     private double moneyCollected;
     public ExitGate()
     {
-        super();
         moneyCollected = 0;
     }
     @Override
-    public boolean carAtGate(Car c)
+    public boolean carAtGate(Car c, Capacities cap)
     {
         Ticket payStub = c.giveTicket();
         moneyCollected += payStub.getCostOfTicket();
         String location = payStub.getLocation();
         if(location.contains("VIP"))
         {
-            currVIP--;
+            cap.currVIP--;
         }
         else if(location.contains("Garage"))
         {
-            currGarage--;
+            cap.currGarage--;
         }
         else if(location.contains("Covered"))
         {
-            currCovered--;
+            cap.currCovered--;
         }
         else if(location.contains("Close"))
         {
-            currClose--;
+            cap.currClose--;
         }
         else
-            currStandard--;
-        currCapacity--;
+            cap.currStandard--;
+        cap.currCapacity--;
         return true;
     }
     public double sendMoney()
