@@ -13,26 +13,41 @@ import java.util.ArrayList;
  */
 public class ParkingLot 
 {
-    private Capacities capacities;
+    private final Capacities capacities;
     private final ArrayList<Gate> gates;
     private final ArrayList<Car> carsInLot;
+    private final Prices prices;
     
     private double moneyMade;
-    public ParkingLot()
+    public ParkingLot(Prices p)
     {
+        prices = p;
         capacities = new Capacities();
         moneyMade = 0;
         gates = new ArrayList<>();
         carsInLot = new ArrayList<>();
-        gates.add(new EntryGate());
+        gates.add(new EntryGate(prices));
         gates.add(new ExitGate());
         moneyMade = 0;
     }
     
-    public boolean carArrived()
+    public int currentCapacity()
     {
-        Car c = new Car();
-        
+        return capacities.currCapacity;
+    }
+    
+    public boolean findCar(Car c)
+    {
+        for(Car car : carsInLot)
+        {
+            if(car.equals(c))
+                return true;
+        }
+        return false;
+    }
+    
+    public boolean carArrived(Car c)
+    {
         if(gates.get(0).carAtGate(c, capacities))
         {
             carsInLot.add(c);

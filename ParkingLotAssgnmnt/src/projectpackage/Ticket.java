@@ -14,26 +14,26 @@ public class Ticket
     private final Instant timestamp;
     private double costPerHour;
     private final String location;
-    public Ticket(String loc)
+    public Ticket(String loc, Prices p)
     {
         location = loc;
         timestamp = Instant.now();
-        costPerHour = 1.5;
+        costPerHour = p.baseCost;
         if(location.contains("Covered"))
         {
-            costPerHour += .5;
+            costPerHour += p.coveredCost;
         }
         if(location.contains("Close"))
         {
-            costPerHour += .15;
+            costPerHour += p.closeCost;
         }
         if(location.contains("VIP"))
         {
-            costPerHour += 5;
+            costPerHour += p.VIPCost;
         }
         if(location.contains("Garage"))
         {
-            costPerHour += .25;
+            costPerHour += p.garageCost;
         }
     }
     public String getLocation()

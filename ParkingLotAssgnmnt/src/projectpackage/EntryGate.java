@@ -13,6 +13,11 @@ package projectpackage;
  */
 public class EntryGate extends Gate
 {
+    private Prices prices;
+    public EntryGate(Prices p)
+    {
+        prices = p;
+    }
     @Override
     public boolean carAtGate(Car c, Capacities cap)
     {
@@ -90,7 +95,7 @@ public class EntryGate extends Gate
             }
         }
         //Now create the ticket with the actual location the car will be sent to
-        Ticket ticket = new Ticket(actualLocation);
+        Ticket ticket = new Ticket(actualLocation, prices);
         c.receiveTicket(ticket);
         cap.currCapacity++;
         return true;

@@ -73,7 +73,8 @@ public class Runner
             rm = new Random();
         else
             rm = new Random(seed);
-        ParkingLot lot = new ParkingLot();
+        Group group = new Group();
+        group.setNewPrices();
         
         for(int day = 1; day <= SIMULATION_DAYS; day++)
         {
@@ -82,20 +83,19 @@ public class Runner
                 switch(rm.nextInt() % 3)
                 {
                     case 0:
-                        if(!lot.carArrived())
+                        Car c = new Car();
+                        if(!group.carArrived(c))
                             System.out.println("Lot has reached capacity.");
                         break;
                     case 1:
                     case 2:
-                        lot.carLeft();
+                        group.carLeft();
                         break;
                     default:
                         break;
                 }
             }
-            System.out.println("Current charges to cars in lot at the end of day " + day + 
-                    ": $" + String.format("%.2f",lot.currentOutstandingIncome()) + ".");
-            lot.close();
+            group.endOfDay(day);
         }
         System.out.println();
     }
