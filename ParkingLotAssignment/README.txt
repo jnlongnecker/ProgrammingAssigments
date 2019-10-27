@@ -23,8 +23,9 @@ the lot as well as the total amount of money the lot has made thus far.
 Minimum value: 1
 
 SEED simply sets the seed of the random number generator that determines the
-chance to add or remove a car from the lot. This input is optional, leave 
-blank or set it to 0 for a random seed.
+chance to add or remove a car from the lot as well as the generator that determines
+the behavior of the Group class. This input is optional, leave blank or set it 
+to 0 for a random seed.
 
 The program will go through each test file every time it is run, so the test
 files may be changed without altering any code. The code assumes that the test
@@ -35,7 +36,8 @@ the program will notify the user of the issue and continue to the other test fil
 A car is randomly assigned a preference on where they want to park. If the
 preferred location is full, they will be assigned a new location in depreciating
 order. If the location is Standard; however, the new location will be assigned
-in appreciating order.
+in appreciating order. Cars can ask for the prices of the group, and the result
+will be printed to the standard output.
 
 /*********************************LOCATIONS***********************************/
 The locations and their order are as follows:
@@ -55,3 +57,17 @@ Covered, and Close, it functionally adds $5.90 for VIP locations and so on.
 The base price of the ticket is $1.50, and Standard locations incurr no extra 
 charge. This charge is HOURLY; however, partial hours are still charged for
 i.e staying 30 minutes at $6.00 an hour would charge $3.00.
+
+Groups can change these prices; however, they will only vary by $0.05 as groups
+must be competitive with other groups. These new assignments are random, and each
+price is changed by the same amount from the standard. 
+
+A discount may also be applied to the prices, but it is possible that a Group
+does not have any discounts.
+/***********************************GROUPS*************************************/
+A Group, by random generation, has between 1-3 lots and will set a price within
+$0.05 of the original prices for each parking type. Groups decide which lot a 
+car is sent to when it arrives (it will always choose the lot with the lowest
+number of cars currently in it). Groups also set discounts to their prices. All
+parking lots within the Group follow the prices set by the Group. Parking Lots
+control how many of each parking type and total capacity they have.
